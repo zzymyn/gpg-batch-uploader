@@ -28,6 +28,7 @@
 //  - Any languages you add here should already be activated in the console.
 //  - And leaderboard that uses suffix/suffixSingular has to already have
 //    that option enabled.
+//  - Images still have to be manually uploaded.
 
 // Known language codes:
 // af,am,ar,az-AZ,be,bn-BD,bg,ca,cs-CZ,da-DK,de-DE,el-GR,en-AU,en-GB,en-US,
