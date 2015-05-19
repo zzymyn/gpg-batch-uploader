@@ -5,6 +5,7 @@ This script will batch update Google Play Games localizations for achievements a
 
 ## How to use
 
+1. Get the BulkUploader.js file.
 1. Set gpgGameId to your Google Play Games application id.
 2. Fill out/generate the "achievements" structure with all your localizations, here is the spec:
 
@@ -43,4 +44,4 @@ This script will batch update Google Play Games localizations for achievements a
           // more leaderboards...
         ];
 
-4. Navigate to the Google Play developer console and paste this entire file into the javascript console in Chrome.
+4. Navigate to the Google Play developer console and paste the entire BulkUploader.js file into the javascript console in Chrome.
