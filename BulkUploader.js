@@ -94,12 +94,14 @@ var leaderboards =
         "title": "endlos-punkte",
         "suffix": "",
         "suffixSingular": "",
+        "suffixMany": "",
     },
     {
         "code": "en-US",
         "title": "endless score",
         "suffix": "",
         "suffixSingular": "",
+        "suffixMany": "",
     },
     ],
 },
@@ -113,12 +115,14 @@ var leaderboards =
         "title": "endlos-epilog-punkte",
         "suffix": "",
         "suffixSingular": "",
+        "suffixMany": "",
     },
     {
         "code": "en-US",
         "title": "epilogue endless score",
         "suffix": "",
         "suffixSingular": "",
+        "suffixMany": "",
     },
     ],
 },
@@ -126,6 +130,9 @@ var leaderboards =
 
 // Navigate to the Google Play developer console and paste this entire file
 // into the javascript console in Chrome.
+
+// Important: If the script gets stuck, refresh the Google Play developer
+// console page before doing anything else or trying again!
 
 //-----------------------------------------------------------------------------
 
@@ -151,9 +158,45 @@ var doList = function (list)
     }, 1);
 }
 
+// Get the first element in a array that matches a predicate:
+var first = function (arr, pred)
+{
+    var result = null;
+
+    for (var i = 0; i < arr.length; ++i)
+    {
+        if (pred(arr[i], i, arr))
+        {
+            result = arr[i];
+            break;
+        }
+    }
+
+    return result;
+}
+
 var getSaveButton = function ()
 {
-    return $$('button')[3];
+    return first($$('button'), function (a)
+    {
+        return a.innerText == "Save\n" || a.innerText == "Save as Draft\n";
+    });
+}
+
+var getSavedButton = function ()
+{
+    return first($$('button'), function (a)
+    {
+        return a.innerText == "Saved\n";
+    });
+}
+
+var getNewButton = function ()
+{
+    return first($$('button'), function (a)
+    {
+        return a.innerText == "Add new achievement\n" || a.innerText == "Add new leaderboard\n";
+    });
 }
 
 var getLocaleButton = function ()
@@ -247,8 +290,18 @@ var fillLeaderboardLanguage = function (lang)
         if ($$('.gwt-TextBox')[0] == null || $$('.gwt-TextBox')[6] == null || $$('.gwt-TextBox')[2] == null)
             return false;
         setText($$('.gwt-TextBox')[0], lang.title);
-        setText($$('.gwt-TextBox')[6], lang.suffix);
-        setText($$('.gwt-TextBox')[2], lang.suffixSingular);
+
+        if (lang.suffix || lang.suffixSingular || lang.suffixMany)
+        {
+            first($$('a'), function (a) { return a.innerText == "Add custom unit"; }).click();
+            setText($$('.gwt-TextBox')[6], lang.suffix);
+            setText($$('.gwt-TextBox')[2], lang.suffixSingular);
+            setText($$('.gwt-TextBox')[5], lang.suffixMany);
+        }
+        else
+        {
+            first($$('a'), function (a) { return a.innerText == "Remove custom unit"; }).click();
+        }
         return true;
     }
 }
@@ -258,7 +311,7 @@ var save = function ()
     return function ()
     {
         var b = getSaveButton();
-        if (!b.innerText.startsWith("Save"))
+        if (!b)
             return false;
         b.click();
         return true;
@@ -269,8 +322,9 @@ var waitForSaved = function ()
 {
     return function ()
     {
+        // Drafts save in place, otherwise they go back to the list:
         write("Waiting for save...")
-        return getSaveButton().innerText.startsWith("Saved");
+        return getSavedButton() || getNewButton();
     }
 }
 
