@@ -35,8 +35,9 @@ This script will batch update Google Play Games localizations for achievements a
               {
                 "code": "locale-code",
                 "title": "title text",
-                "suffix": "",
-                "suffixSingular": "",
+                "suffix": " points",
+                "suffixSingular": " point",
+                "suffixMany": " points", // only used in ru-RU?
               },
               // more locales...
             ],
