@@ -136,6 +136,10 @@ var leaderboards =
 
 //-----------------------------------------------------------------------------
 
+// Don't know why but this is needed otherwise we get a ReferenceError:
+$ = $;
+$$ = $$;
+
 // Execute a list of operations. Each operation is executed repeatedly until it
 // returns true, at which point the next operation is executed:
 var doList = function (list)
@@ -179,7 +183,7 @@ var getSaveButton = function ()
 {
     return first($$('button'), function (a)
     {
-        return a.innerText == "Save\n" || a.innerText == "Save as Draft\n";
+        return /^Save( as Draft)?\s*$/i.test(a.innerText);
     });
 }
 
@@ -187,7 +191,7 @@ var getSavedButton = function ()
 {
     return first($$('button'), function (a)
     {
-        return a.innerText == "Saved\n";
+        return /^Saved\s*$/i.test(a.innerText);
     });
 }
 
@@ -195,7 +199,7 @@ var getNewButton = function ()
 {
     return first($$('button'), function (a)
     {
-        return a.innerText == "Add new achievement\n" || a.innerText == "Add new leaderboard\n";
+        return /Add new (achievement|leaderboard)\s*$/i.test(a.innerText);
     });
 }
 
