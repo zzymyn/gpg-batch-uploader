@@ -159,7 +159,7 @@ var doList = function (list)
         {
             clearInterval(intervalId);
         }
-    }, 1);
+    }, 10);
 }
 
 // Get the first element in a array that matches a predicate:
@@ -362,6 +362,7 @@ achievements.forEach(function (achievement)
     });
 
     list.push(fillAchievement(achievement));
+    list.push(selectLanguage({ "code": "en-US" }));
     list.push(write("Saving..."));
     list.push(save());
     list.push(waitForSaved());
@@ -379,6 +380,7 @@ leaderboards.forEach(function (leaderboard)
     });
 
     list.push(fillLeaderboard(leaderboard));
+    list.push(selectLanguage({ "code": "en-US" }));
     list.push(write("Saving..."));
     list.push(save());
     list.push(waitForSaved());
