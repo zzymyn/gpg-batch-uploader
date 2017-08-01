@@ -38,11 +38,11 @@
 // si-LK,sk,sl,sr,sv-SE,sw,ta-IN,te-IN,th,fil,tr-TR,uk,vi,zh-CN,zh-TW,zu
 
 // Set gpgGameId to your Google Play Games application id:
-var gpgGameId = 123456789012;
+var gpgGameId = gpgGameId || 123456789012;
 
 // Fill out/generate this achievements structure with all your localizations,
 // here is an example:
-var achievements =
+var achievements = achievements ||
 [
 {
     "id": "xxxxxxxxx-xxxxxxxx",
@@ -82,7 +82,7 @@ var achievements =
 
 // Fill out/generate this leaderboards structure with all your localizations,
 // here is an example:
-var leaderboards =
+var leaderboards = leaderboards ||
 [
 {
     "id": "xxxxxxxxx-xxxxxxxx",
@@ -232,9 +232,9 @@ var fillAchievement = function (achievement)
 {
     return function ()
     {
-        if ($$('.gwt-TextBox')[3] == null)
+        if ($$('.gwt-TextBox')[4] == null)
             return false;
-        setText($$('.gwt-TextBox')[3], achievement.position);
+        setText($$('.gwt-TextBox')[4], achievement.position);
         return true;
     }
 }
@@ -243,9 +243,9 @@ var fillLeaderboard = function (achievement)
 {
     return function ()
     {
-        if ($$('.gwt-TextBox')[9] == null)
+        if ($$('.gwt-TextBox')[10] == null)
             return false;
-        setText($$('.gwt-TextBox')[9], achievement.position);
+        setText($$('.gwt-TextBox')[10], achievement.position);
         return true;
     }
 }
@@ -279,9 +279,9 @@ var fillAchievementLanguage = function (lang)
 {
     return function ()
     {
-        if ($$('.gwt-TextBox')[0] == null || $$('.gwt-TextArea')[0] == null)
+        if ($$('.gwt-TextBox')[1] == null || $$('.gwt-TextArea')[0] == null)
             return false;
-        setText($$('.gwt-TextBox')[0], lang.title);
+        setText($$('.gwt-TextBox')[1], lang.title);
         setText($$('.gwt-TextArea')[0], lang.desc);
         return true;
     }
@@ -291,16 +291,16 @@ var fillLeaderboardLanguage = function (lang)
 {
     return function ()
     {
-        if ($$('.gwt-TextBox')[0] == null || $$('.gwt-TextBox')[6] == null || $$('.gwt-TextBox')[2] == null)
+        if ($$('.gwt-TextBox')[1] == null || $$('.gwt-TextBox')[7] == null || $$('.gwt-TextBox')[3] == null)
             return false;
-        setText($$('.gwt-TextBox')[0], lang.title);
+        setText($$('.gwt-TextBox')[1], lang.title);
 
         if (lang.suffix || lang.suffixSingular || lang.suffixMany)
         {
             first($$('a'), function (a) { return a.innerText == "Add custom unit"; }).click();
-            setText($$('.gwt-TextBox')[6], lang.suffix);
-            setText($$('.gwt-TextBox')[2], lang.suffixSingular);
-            setText($$('.gwt-TextBox')[5], lang.suffixMany);
+            setText($$('.gwt-TextBox')[7], lang.suffix);
+            setText($$('.gwt-TextBox')[3], lang.suffixSingular);
+            setText($$('.gwt-TextBox')[6], lang.suffixMany);
         }
         else
         {
